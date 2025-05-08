@@ -1,0 +1,258 @@
+<!DOCTYPE html><html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Daily & Life Timer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/svgs/regular/clock.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #f4f4f4;
+      font-family: Helvetica, sans-serif;
+    }body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  max-width: 500px;
+  padding: 2em;
+  box-sizing: border-box;
+}
+
+.timer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+  padding: 2em 3em 2.5em;
+  width: 100%;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.icon {
+  font-size: 2.5em;
+  color: #888;
+  margin-bottom: 0.5em;
+}
+
+.label {
+  font-size: 1.1em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #555;
+  margin-bottom: 0.3em;
+}
+
+.time-text {
+  font-size: 2em;
+  font-weight: 600;
+  line-height: 1.4em;
+  text-align: center;
+  color: #111;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.description {
+  font-size: 0.9em;
+  color: #777;
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+}
+
+.bar-container {
+  width: 100%;
+  height: 8px;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  background-color: #555;
+  width: 100%;
+  transition: width 0.5s ease;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 2em;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 90vw;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal-content h2 {
+  font-size: 1.2em;
+  margin-bottom: 1em;
+  color: #333;
+}
+
+.modal-content input[type="date"] {
+  font-size: 1em;
+  padding: 0.5em 1em;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.modal-content button {
+  margin-top: 1.2em;
+  padding: 0.5em 1.5em;
+  font-size: 1em;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #333;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.modal-content button:hover {
+  background-color: #555;
+}
+
+@media (max-width: 600px) {
+  .time-text {
+    font-size: 1.5em;
+  }
+  .icon {
+    font-size: 2em;
+  }
+  .label {
+    font-size: 0.95em;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <div id="birthday-modal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <h2>Enter your birthday</h2>
+      <input type="date" id="birth-input">
+      <button onclick="saveBirthday()">Start</button>
+    </div>
+  </div>  <div class="wrapper">
+    <div class="timer">
+      <div class="icon"><i class="fas fa-infinity"></i></div>
+      <div class="label">Life Remaining</div>
+      <div class="time-text" id="life-text">Calculating...</div>
+      <div class="description">time left to live</div>
+      <div class="bar-container">
+        <div class="bar-fill" id="life-bar"></div>
+      </div>
+    </div>
+    <div class="timer">
+      <div class="icon"><i class="fas fa-sun"></i></div>
+      <div class="label">Today Remaining</div>
+      <div class="time-text" id="day-text">Calculating...</div>
+      <div class="description">time left in the day</div>
+      <div class="bar-container">
+        <div class="bar-fill" id="day-bar"></div>
+      </div>
+    </div>
+  </div>  <script>
+    let birthDate;
+
+    function saveBirthday() {
+      const input = document.getElementById("birth-input").value;
+      if (input) {
+        localStorage.setItem("birthDate", input);
+        birthDate = new Date(input);
+        document.getElementById("birthday-modal").style.display = "none";
+        updateAll();
+        setInterval(updateAll, 1000);
+      }
+    }
+
+    function checkBirthday() {
+      const stored = localStorage.getItem("birthDate");
+      if (stored) {
+        birthDate = new Date(stored);
+        updateAll();
+        setInterval(updateAll, 1000);
+      } else {
+        document.getElementById("birthday-modal").style.display = "flex";
+      }
+    }
+
+    function updateDayTimer() {
+      const now = new Date();
+      const jstNow = new Date(now.getTime() + (now.getTimezoneOffset() + 540) * 60000);
+      const totalSecondsPassed = jstNow.getHours() * 3600 + jstNow.getMinutes() * 60 + jstNow.getSeconds();
+      const totalSecondsInDay = 1440 * 60;
+      const remainingSeconds = Math.max(0, totalSecondsInDay - totalSecondsPassed);
+
+      const m = Math.floor(remainingSeconds / 60);
+      const progress = (remainingSeconds / totalSecondsInDay) * 100;
+
+      document.getElementById('day-text').textContent = `${m} min`;
+      document.getElementById('day-bar').style.width = `${progress}%`;
+    }
+
+    function updateLifeTimer() {
+      const lifeExpectancyYears = 80;
+      const deathDate = new Date(birthDate);
+      deathDate.setFullYear(birthDate.getFullYear() + lifeExpectancyYears);
+
+      const now = new Date();
+      const jstNow = new Date(now.getTime() + (now.getTimezoneOffset() + 540) * 60000);
+
+      const totalLifeSeconds = Math.floor((deathDate - birthDate) / 1000);
+      const secondsLived = Math.floor((jstNow - birthDate) / 1000);
+      const secondsLeft = Math.max(0, totalLifeSeconds - secondsLived);
+      const progress = (secondsLeft / totalLifeSeconds) * 100;
+
+      const daysLeft = Math.floor(secondsLeft / 86400);
+      const hoursLeft = Math.floor((secondsLeft % 86400) / 3600);
+      const minutesLeft = Math.floor((secondsLeft % 3600) / 60);
+      const secondsRemainder = Math.floor(secondsLeft % 60);
+
+      document.getElementById('life-text').textContent = `${daysLeft}d ${hoursLeft}h ${minutesLeft}m ${secondsRemainder}s`;
+      document.getElementById('life-bar').style.width = `${progress}%`;
+    }
+
+    function updateAll() {
+      updateDayTimer();
+      updateLifeTimer();
+    }
+
+    checkBirthday();
+  </script></body>
+</html>
