@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="ja">
+<!DOCTYPE html>
+<html lang="ja">
 <head>
   <meta charset="UTF-8">
   <title>Daily & Life Timer</title>
@@ -12,153 +13,144 @@
       height: 100%;
       background: #f4f4f4;
       font-family: Helvetica, sans-serif;
-    }body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+    }
 
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-  width: 100%;
-  max-width: 500px;
-  padding: 2em;
-  box-sizing: border-box;
-}
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-.timer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: white;
-  border-radius: 1.5rem;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-  padding: 2em 3em 2.5em;
-  width: 100%;
-  transition: all 0.3s ease;
-  position: relative;
-}
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      width: 100%;
+      max-width: 500px;
+      padding: 2em;
+      box-sizing: border-box;
+    }
 
-.icon {
-  font-size: 2.5em;
-  color: #888;
-  margin-bottom: 0.5em;
-}
+    .timer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      border-radius: 1.5rem;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+      padding: 2em 3em 2.5em;
+      width: 100%;
+      transition: all 0.3s ease;
+      position: relative;
+    }
 
-.label {
-  font-size: 1.1em;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #555;
-  margin-bottom: 0.3em;
-}
+    .icon {
+      font-size: 2.5em;
+      color: #888;
+      margin-bottom: 0.5em;
+    }
 
-.time-text {
-  font-size: 2em;
-  font-weight: 600;
-  line-height: 1.4em;
-  text-align: center;
-  color: #111;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-}
+    .label {
+      font-size: 1.1em;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #555;
+      margin-bottom: 0.3em;
+    }
 
-.description {
-  font-size: 0.9em;
-  color: #777;
-  margin-top: 0.5em;
-  margin-bottom: 1em;
-}
+    .time-text {
+      font-size: 2em;
+      font-weight: 600;
+      line-height: 1.4em;
+      text-align: center;
+      color: #111;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      white-space: nowrap;
+    }
 
-.bar-container {
-  width: 100%;
-  height: 8px;
-  background-color: #e0e0e0;
-  border-radius: 4px;
-  overflow: hidden;
-}
+    .description {
+      font-size: 0.9em;
+      color: #777;
+      margin-top: 0.5em;
+      margin-bottom: 1em;
+    }
 
-.bar-fill {
-  height: 100%;
-  background-color: #555;
-  width: 100%;
-  transition: width 0.5s ease;
-}
+    .bar-container {
+      width: 100%;
+      height: 8px;
+      background-color: #e0e0e0;
+      border-radius: 4px;
+      overflow: hidden;
+    }
 
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
+    .bar-fill {
+      height: 100%;
+      background-color: #555;
+      width: 100%;
+      transition: width 0.5s ease;
+    }
 
-.modal-content {
-  background: white;
-  padding: 2em;
-  border-radius: 1.5rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  max-width: 90vw;
-  width: 300px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
 
-.modal-content h2 {
-  font-size: 1.2em;
-  margin-bottom: 1em;
-  color: #333;
-}
+    .modal-content {
+      background: white;
+      padding: 2em;
+      border-radius: 1.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 90vw;
+      width: 300px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-.modal-content input[type="date"] {
-  font-size: 1em;
-  padding: 0.5em 1em;
-  border: 1px solid #ccc;
-  border-radius: 0.5rem;
-  width: 100%;
-  box-sizing: border-box;
-}
+    .modal-content h2 {
+      font-size: 1.2em;
+      margin-bottom: 1em;
+      color: #333;
+    }
 
-.modal-content button {
-  margin-top: 1.2em;
-  padding: 0.5em 1.5em;
-  font-size: 1em;
-  border: none;
-  border-radius: 0.5rem;
-  background-color: #333;
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
+    .modal-content input[type="date"],
+    .modal-content input[type="number"] {
+      font-size: 1em;
+      padding: 0.5em 1em;
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
 
-.modal-content button:hover {
-  background-color: #555;
-}
+    .modal-content button {
+      margin-top: 1.2em;
+      padding: 0.5em 1.5em;
+      font-size: 1em;
+      border: none;
+      border-radius: 0.5rem;
+      background-color: #333;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
 
-@media (max-width: 600px) {
-  .time-text {
-    font-size: 1.5em;
-  }
-  .icon {
-    font-size: 2em;
-  }
-  .label {
-    font-size: 0.95em;
-  }
-}
-
+    .modal-content button:hover {
+      background-color: #555;
+    }
   </style>
 </head>
 <body>
@@ -168,8 +160,18 @@
       <input type="date" id="birth-input">
       <button onclick="saveBirthday()">Start</button>
     </div>
-  </div>  <div class="wrapper">
-    <div class="timer">
+  </div>
+
+  <div id="life-modal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <h2>Set Life Expectancy</h2>
+      <input type="number" id="life-input" min="1" max="150" placeholder="years (e.g., 90)">
+      <button onclick="saveLifeExpectancy()">Save</button>
+    </div>
+  </div>
+
+  <div class="wrapper">
+    <div class="timer" id="life-box">
       <div class="icon"><i class="fas fa-infinity"></i></div>
       <div class="label">Life Remaining</div>
       <div class="time-text" id="life-text">Calculating...</div>
@@ -187,8 +189,48 @@
         <div class="bar-fill" id="day-bar"></div>
       </div>
     </div>
-  </div>  <script>
+  </div>
+
+  <script>
     let birthDate;
+    let clickCount = 0;
+    let lifeExpectancyYears = localStorage.getItem("lifeExpectancy") 
+      ? parseInt(localStorage.getItem("lifeExpectancy")) 
+      : 80;
+
+    const lifeBox = document.getElementById("life-box");
+    let longPressTimer;
+    lifeBox.addEventListener("mousedown", () => {
+      longPressTimer = setTimeout(showBirthdayModal, 5000);
+    });
+    lifeBox.addEventListener("mouseup", () => clearTimeout(longPressTimer));
+    lifeBox.addEventListener("mouseleave", () => clearTimeout(longPressTimer));
+    lifeBox.addEventListener("touchstart", () => {
+      longPressTimer = setTimeout(showBirthdayModal, 5000);
+    });
+    lifeBox.addEventListener("touchend", () => clearTimeout(longPressTimer));
+
+    document.body.addEventListener("click", () => {
+  clickCount++;
+  if (clickCount >= 25) {
+    clickCount = 0;
+    const storedLife = localStorage.getItem("lifeExpectancy");
+    const inputElement = document.getElementById("life-input");
+
+    // 値があればそれをセット、なければ80を表示
+    inputElement.value = storedLife ? storedLife : 80;
+
+    document.getElementById("life-modal").style.display = "flex";
+  }
+});
+
+    function showBirthdayModal() {
+      const stored = localStorage.getItem("birthDate");
+      if (stored) {
+        document.getElementById("birth-input").value = stored;
+      }
+      document.getElementById("birthday-modal").style.display = "flex";
+    }
 
     function saveBirthday() {
       const input = document.getElementById("birth-input").value;
@@ -201,6 +243,16 @@
       }
     }
 
+    function saveLifeExpectancy() {
+      const val = parseInt(document.getElementById("life-input").value);
+      if (val && val > 0 && val < 150) {
+        lifeExpectancyYears = val;
+        localStorage.setItem("lifeExpectancy", val);
+        document.getElementById("life-modal").style.display = "none";
+        updateLifeTimer();
+      }
+    }
+
     function checkBirthday() {
       const stored = localStorage.getItem("birthDate");
       if (stored) {
@@ -208,7 +260,7 @@
         updateAll();
         setInterval(updateAll, 1000);
       } else {
-        document.getElementById("birthday-modal").style.display = "flex";
+        showBirthdayModal();
       }
     }
 
@@ -227,7 +279,6 @@
     }
 
     function updateLifeTimer() {
-      const lifeExpectancyYears = 80;
       const deathDate = new Date(birthDate);
       deathDate.setFullYear(birthDate.getFullYear() + lifeExpectancyYears);
 
@@ -254,5 +305,6 @@
     }
 
     checkBirthday();
-  </script></body>
+  </script>
+</body>
 </html>
